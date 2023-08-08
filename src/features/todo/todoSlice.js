@@ -2,18 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const getId = () => crypto.randomUUID();
 const initialState = {
-  todos: [
-    {
-      id: getId(),
-      text: "Complete online JavaScript course",
-      completed: true,
-    },
-    {
-      id: getId(),
-      text: "Jog around the park 3x",
-      completed: false,
-    },
-  ],
+  todos: [],
 };
 
 const todoSlice = createSlice({
