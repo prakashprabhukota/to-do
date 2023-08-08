@@ -1,29 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const getId = () => crypto.randomUUID();
-const localStorageTodos = JSON.parse(localStorage.getItem("todoList"));
-if (!localStorageTodos) {
-  const initalTodos = {
-    todos: [
-      {
-        id: getId(),
-        text: "Complete online JavaScript course",
-        completed: true,
-      },
-      {
-        id: getId(),
-        text: "Jog around the park 3x",
-        completed: false,
-      },
-    ],
-  };
-  localStorage.setItem("todoList", JSON.stringify(initalTodos));
-}
-
-const initialState =
-  JSON.parse(localStorage.getItem("todoList")) !== null
-    ? JSON.parse(localStorage.getItem("todoList"))
-    : { todos: [] };
+const initialState = {
+  todos: [
+    {
+      id: getId(),
+      text: "Complete online JavaScript course",
+      completed: true,
+    },
+    {
+      id: getId(),
+      text: "Jog around the park 3x",
+      completed: false,
+    },
+  ],
+};
 
 const todoSlice = createSlice({
   name: "todo",
@@ -36,18 +27,18 @@ const todoSlice = createSlice({
         completed: false,
       };
       state.todos.push(newTodo);
-      localStorage.setItem("todoList", JSON.stringify(state));
     },
     toggleComplete: (state, action) => {
       const index = state.todos.findIndex(
         (todo) => todo.id === action.payload.id
       );
       state.todos[index].completed = action.payload.completed;
-      localStorage.setItem("todoList", JSON.stringify(state));
     },
     deleteTodo: (state, action) => {
-      state.todos = state.todos.filter((todo) => todo.id !== action.payload.id);
-      localStorage.setItem("todoList", JSON.stringify(state));
+      const removeItem = state.todos.filter(
+        (todo) => todo.id !== action.payload.id
+      );
+      state.todos = removeItem;
     },
   },
 });
